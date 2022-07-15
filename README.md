@@ -4,6 +4,8 @@
 ![](https://img.shields.io/badge/Golang-1.17-yellow)
 ![](https://img.shields.io/badge/React-red)
 ![](https://img.shields.io/badge/MongoDB-Cloud-green)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fc38c13c-c8c9-4294-9701-4f9114d664fb/deploy-status)](https://app.netlify.com/sites/reliable-marshmallow-87c5cc/deploys)
+
 
 ## This is a react implementation of my previous messenger clone I made last year.
 
