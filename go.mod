@@ -1,5 +1,7 @@
 module Messenger
 
+// +heroku goVersion go1.17
+
 go 1.17
 
 require github.com/go-chi/cors v1.2.1
