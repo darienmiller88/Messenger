@@ -1,10 +1,16 @@
-import './App.css';
+import Landing from './pages/Landing/Landing'
+import Home from './pages/Home/Home';
+import "./App.css"
+import { BrowserRouter, Route, Routes} from "react-router-dom"
 
 function App() {
     return (
-        <div className="App">
-            <div>Start of messenger app</div>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route exact path="/"     element={<Landing />}/>
+                <Route exact path="/home" element={<Home />}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

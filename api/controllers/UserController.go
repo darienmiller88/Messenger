@@ -63,7 +63,7 @@ func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {
 	user.Password = strings.Trim(user.Password, " ")
 
 	if err := user.Validate(); err != nil{
-		u.r.JSON(res, http.StatusBadRequest, err.Error())
+		u.r.JSON(res, http.StatusBadRequest, err)
 		return
 	}
 

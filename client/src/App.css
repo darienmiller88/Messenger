@@ -1,4 +1,11 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@700&family=Kanit:wght@300&family=Open+Sans:wght@300&family=Oswald:wght@300;400&family=Rubik:ital,wght@0,500;1,900&display=swap');
 
+body{
+    margin: 0;
+
+    font-family: 'Gentium Book Plus', serif;
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}

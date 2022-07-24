@@ -1,0 +1,169 @@
+.registration_form{
+    .logo_wrapper{
+        text-align: center;
+        margin: 20px 0px;
+
+        @media screen and (min-width: 768px) {
+            margin: 40px 0px;
+        }
+
+        @media screen and (min-width: 992px) {
+            margin: 20px 0px;
+        }
+    }
+
+    .title{
+        color: white;
+        font-size: 25px;
+        margin: auto;
+
+        @media screen and (min-width: 768px) {
+            font-size: 35px;
+        }
+
+        @media screen and (min-width: 992px) {
+            font-size: 35px;
+        }
+    }
+
+    .user_input{
+        text-align: center;
+        // margin: 10px;
+
+        input{
+            width: 90%;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(90, 90, 90);
+            color: white;
+
+            @media screen and (min-width: 768px) {
+                width: 80%;
+            }
+
+            @media screen and (min-width: 992px) {
+                width: 35%
+            }
+        }
+
+        ::placeholder { 
+            color: rgb(170, 170, 170);
+        }
+    }
+
+    button{
+        width: 90%;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: none;
+        font-size: 20px;
+        color: white;
+        // padding: 0px 50px;
+        transition: 0.3s;
+
+        @media screen and (min-width: 768px) {
+            width: 80%;
+        }
+
+        @media screen and (min-width: 992px) {
+            width: 35%
+        }
+    }
+
+    .login_button{
+        background-color: rgb(30, 144, 255);
+
+        &:hover{
+            cursor: pointer;
+            background-color:  rgb(30, 68, 255);
+        }
+
+        &:active{
+            background-color: black;
+        }
+    }
+    
+    .create_account{
+        background-color: rgb(100, 100, 100);
+        margin-top: 80px;
+
+        &:hover{
+            cursor: pointer;
+            background-color: rgb(75, 75, 75);
+        }
+
+        &:active{
+            background-color: rgb(50, 50, 50);
+        }
+    }
+
+}
+
+.signup{
+    display: grid;
+    margin: 90px 10px;
+    
+    .already{
+        color: white;
+        text-align: center;
+
+        b{
+            text-decoration: underline;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            font-size: 20px;
+        }    
+
+        @media screen and (min-width: 992px) {
+            font-size: 15px;
+        }    
+    }
+
+    @media screen and (min-width: 768px) {
+        margin: 200px 30px;
+    }
+
+    @media screen and (min-width: 992px) {
+        margin: 30px 30px;
+    }
+
+    @media screen and (min-width: 1600px) {
+        margin: 150px 30px;
+    }
+}
+
+.signin{
+    display: grid;
+    margin: 70px 30px;
+    // border: 2px red solid;
+
+    .forgot{
+        text-align: center;
+        text-decoration: underline;
+        color: white;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    
+    @media screen and (min-width: 768px) {
+        margin: 200px 30px;
+    }
+
+    @media screen and (min-width: 992px) {
+        margin: 30px 30px;
+    }
+
+    @media screen and (min-width: 1600px) {
+        margin: 200px 30px;
+    }
+}

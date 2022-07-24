@@ -16,9 +16,9 @@ func (u *UserRoutes) Init(){
 	u.controller.Init()
 
 	u.Router.Get("/", u.controller.GetUsers)
-	u.Router.Get("/{username}", u.controller.GetUser)
 	u.Router.Post("/signin", u.controller.Signin)
 	u.Router.Post("/signup", u.controller.Signup)
 	u.Router.Post("/signout", u.controller.Signout)
+	u.Router.Get("/{username}", u.controller.GetUser)
 	u.Router.Delete("/{username}", u.controller.DeleteUser)
 }
