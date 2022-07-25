@@ -2,23 +2,25 @@ package models
 
 import (
 	"regexp"
+	"time"
 
 	"github.com/go-ozzo/ozzo-validation"
 	"github.com/nerock/ozzo-validation/is"
-	"gorm.io/gorm"
 )
 
 type User struct{
-	gorm.Model
-	Username    string `json:"username"     gorm:"type:string; size:20; unique; not null"`
-	Password    string `json:"password"     gorm:"type:string; size:50;"`
-	Email       string `json:"email"        gorm:"type:string"`
-	PhoneNumber string `json:"phone_number" gorm:"type:string"`
+	ID          uint      `gorm:"primaryKey"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	Username    string    `json:"username"     gorm:"type:string; size:20; unique; not null"`
+	Password    string    `json:"password"     gorm:"type:string; size:100; not null"`
+	Email       string    `json:"email"        gorm:"type:string"`
+	PhoneNumber string    `json:"phone_number" gorm:"type:string"`
 }
 
-func (u User) Validate () error {
+func (u *User) Validate () error {
 	return validation.ValidateStruct(
-		&u,
+		u,
 		validation.Field(&u.Username, validation.Required, validation.Length(5, 20), is.Alphanumeric),
 		validation.Field(&u.Password, 
 			validation.Required,

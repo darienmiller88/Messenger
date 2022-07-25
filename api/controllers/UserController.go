@@ -9,6 +9,7 @@ import (
 	"Messenger/api/models"
 
 	"github.com/go-chi/chi"
+	"golang.org/x/crypto/bcrypt"
 	chi_render "github.com/go-chi/render"
 	"github.com/unrolled/render"
 	"gorm.io/gorm"
@@ -62,13 +63,18 @@ func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {
 	//Trim the password for any empty spaces.
 	user.Password = strings.Trim(user.Password, " ")
 
+	fmt.Println("user:", user)
+
 	if err := user.Validate(); err != nil{
 		u.r.JSON(res, http.StatusBadRequest, err)
 		return
 	}
 
+ 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
+	user.Password = string(hashedPassword)
+
 	if err := u.db.Create(&user).Error; err != nil{
-		u.r.JSON(res, http.StatusBadRequest, jsonBody{"err": fmt.Sprintf("User \"%s\" already exists!", user.Username)})
+		u.r.JSON(res, http.StatusBadRequest, jsonBody{"username": fmt.Sprintf("User \"%s\" already exists! Please select another username.", user.Username)})
 		return
 	}
 
@@ -76,7 +82,23 @@ func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {
 }
 
 func (u *UserController) Signin(res http.ResponseWriter, req *http.Request) {
-	u.r.JSON(res, http.StatusOK, jsonBody{"message": "signin"})
+	user := models.User{}
+
+	if err := chi_render.DecodeJSON(req.Body, &user); err != nil{
+		u.r.JSON(res, http.StatusBadRequest, jsonBody{"err": err.Error()})
+		return
+	}
+
+	possibleUser := models.User{}
+	usernameErr := u.db.Where("username = ?", user.Username).Find(&possibleUser).Error
+	passwordErr := bcrypt.CompareHashAndPassword([]byte(possibleUser.Password), []byte(user.Password))
+	
+	if usernameErr != nil || passwordErr != nil{
+		u.r.JSON(res, http.StatusNotFound, jsonBody{"signinError": "Username or Password not connected to any account. Please try again."})
+		return
+	}
+	
+	u.r.JSON(res, http.StatusOK, jsonBody{"message": "You're signed in!"})
 }
 
 func (u *UserController) Signout(res http.ResponseWriter, req *http.Request) {
