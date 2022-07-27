@@ -11,7 +11,7 @@ export default function Landing() {
         (async () => {
             try {
                 await userApi.get("/checkauth")
-                navigate("/")
+                navigate("/home")
             } catch (error) {
                 console.log("err:", error);
             }

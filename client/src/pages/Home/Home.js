@@ -14,7 +14,7 @@ export default function Home() {
                 console.log("res:", response);
             } catch (error) {
                 console.log("err:", error);
-                if (error.response.status === 403){
+                if (error.response.data["tokenError"]){
                     navigate("/")
                 }
             }
