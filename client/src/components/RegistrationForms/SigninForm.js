@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from "../../img/logo.png"
 import styles from "./Form.module.scss"
 import { userApi } from '../api/api'
+import { useNavigate } from "react-router-dom";
 
 export default function SigninForm({ changeToSignup }) {
     const [username, setUsernameText] = useState("")
     const [password, setPasswordText] = useState("")
     const [signinError, setSigninError] = useState("")
     const [isSigninError, setIsSigninError] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        
+    }, [])
+    
 
     const login = async () => {
         const data = {
@@ -17,11 +24,15 @@ export default function SigninForm({ changeToSignup }) {
 
         try {
             const response = await userApi.post("/signin", data)
-            console.log("res;", response.data);
+            console.log("res;", response.data)
+
+            localStorage.setItem("username", username)
 
             setIsSigninError(false)
             setUsernameText("")
             setPasswordText("")
+
+            navigate("/home")
         } catch (error) {
             setIsSigninError(true)
             setSigninError(error.response.data["signinError"])

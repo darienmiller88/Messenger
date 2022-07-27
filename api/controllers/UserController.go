@@ -3,17 +3,22 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
+	"time"
 
 	"Messenger/api/database"
 	"Messenger/api/models"
 
 	"github.com/go-chi/chi"
-	"golang.org/x/crypto/bcrypt"
 	chi_render "github.com/go-chi/render"
+	"github.com/golang-jwt/jwt"
 	"github.com/unrolled/render"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
+
+const sessionLen int = 10000
 
 type jsonBody map[string]interface{}
 type UserController struct{
@@ -24,6 +29,10 @@ type UserController struct{
 func (u *UserController) Init(){
 	u.r  = *render.New()
 	u.db =  database.GetDB()
+}
+
+func (u *UserController) Checkauth(res http.ResponseWriter, req *http.Request){
+	u.r.JSON(res, http.StatusOK, jsonBody{"message": "Signed in!"})
 }
 
 func (u *UserController) GetUsers(res http.ResponseWriter, req *http.Request) {
@@ -63,8 +72,6 @@ func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {
 	//Trim the password for any empty spaces.
 	user.Password = strings.Trim(user.Password, " ")
 
-	fmt.Println("user:", user)
-
 	if err := user.Validate(); err != nil{
 		u.r.JSON(res, http.StatusBadRequest, err)
 		return
@@ -78,7 +85,8 @@ func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	u.r.JSON(res, http.StatusOK, user)
+	setCookie(getJwtToken(user), sessionLen, res)
+	u.r.JSON(res, http.StatusOK, jsonBody{"success": "Signed up!"})
 }
 
 func (u *UserController) Signin(res http.ResponseWriter, req *http.Request) {
@@ -98,9 +106,34 @@ func (u *UserController) Signin(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	
+	setCookie(getJwtToken(user), sessionLen, res)
 	u.r.JSON(res, http.StatusOK, jsonBody{"message": "You're signed in!"})
 }
 
 func (u *UserController) Signout(res http.ResponseWriter, req *http.Request) {
+	setCookie("", -1, res)
 	u.r.JSON(res, http.StatusOK, jsonBody{"message": "signout"})
+}
+
+func getJwtToken(user models.User) string{
+	expiry := time.Now().Add(time.Duration(sessionLen) * time.Second)
+	tokenString, _ := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"username": user.Username,
+		"exp"     : expiry.Unix(),
+	}).SignedString([]byte(os.Getenv("JWT_SECRET")))
+
+	return tokenString
+}
+
+func setCookie(tokenString string, expiry int, res http.ResponseWriter) {
+	http.SetCookie(res, &http.Cookie{
+		Name:     "jwt",
+		Path:     "/",
+		HttpOnly: true,
+		Value:    tokenString,
+		MaxAge:   expiry,
+		SameSite: http.SameSiteNoneMode,
+		Secure:   true,
+		//Domain:   "better-bank-account-api.herokuapp.com",
+	})
 }

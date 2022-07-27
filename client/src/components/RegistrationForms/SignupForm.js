@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import logo from "../../img/logo.png"
 import styles from "./Form.module.scss"
 import { userApi } from '../api/api'
@@ -9,6 +10,7 @@ export default function SignupForm({ changeToSignup }) {
     const [isUsernameError, setIsUsernameError] = useState(false)
     const [passwordError, setPasswordError] = useState("")
     const [isPasswordError, setIsPasswordError] = useState(false)
+    const navigate = useNavigate()
 
     const submitForm = async (e) =>  {
         e.preventDefault()
@@ -26,12 +28,13 @@ export default function SignupForm({ changeToSignup }) {
         }
 
         try {
-            const response = await userApi.post("/signup", data)
-            console.log("response:", response);
+            await userApi.post("/signup", data)
+
             setIsUsernameError(false)
             setIsPasswordError(false)
-
             formRef.current.reset()
+            
+            navigate("/home")
         } catch (error) {
             if(error.response.data["password"]){
                 console.log("password error:", error.response.data["password"]);
