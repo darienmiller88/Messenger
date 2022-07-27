@@ -13,6 +13,7 @@ export default function Home() {
                 const response = await userApi.get(`/${localStorage.getItem("username")}`)
                 console.log("res:", response);
             } catch (error) {
+                console.log("err:", error);
                 if (error.response.status === 403){
                     navigate("/")
                 }
