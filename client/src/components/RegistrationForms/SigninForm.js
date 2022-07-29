@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import logo from "../../img/logo.png"
 import styles from "./Form.module.scss"
 import { userApi } from '../api/api'
@@ -10,11 +10,6 @@ export default function SigninForm({ changeToSignup }) {
     const [signinError, setSigninError] = useState("")
     const [isSigninError, setIsSigninError] = useState(false)
     const navigate = useNavigate()
-
-    useEffect(() => {
-        
-    }, [])
-    
 
     const login = async () => {
         const data = {
