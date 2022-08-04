@@ -1,0 +1,39 @@
+.chats_wrapper{
+    height: 100vh;
+
+    .chats{
+        height: 100%;
+        background-color: aqua;
+
+        @media screen and (min-width: 768px) {
+            
+        }
+    }
+
+    .phone_view{
+        height: 100%;
+
+        .chats{
+            border: 2px black solid;
+
+            button{
+                background-color: blueviolet;
+            }
+        }
+    
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .desktop_view{
+        display: none;
+        
+        @media screen and (min-width: 768px) {
+            display: grid;
+            
+            height: 100%;
+            grid-template-columns: 40% auto;
+        }
+    }
+}
