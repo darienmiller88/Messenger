@@ -16,10 +16,10 @@ export default function Home() {
                 console.log("res:", response);
             } catch (error) {
                 // console.log("err:", error);
-                if (error.response.data["tokenError"]){
-                    console.log("err: ", error.response.data["tokenError"])
-                    navigate("/")
-                }
+                // if (error.response.data["tokenError"]){
+                //     console.log("err: ", error.response.data["tokenError"])
+                //     navigate("/")
+                // }
             }
         })()
     }, [])

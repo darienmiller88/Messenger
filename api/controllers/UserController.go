@@ -134,6 +134,5 @@ func setCookie(tokenString string, expiry int, res http.ResponseWriter) {
 		MaxAge:   expiry,
 		SameSite: http.SameSiteNoneMode,
 		Secure:   true,
-		//Domain:   "better-bank-account-api.herokuapp.com",
 	})
 }

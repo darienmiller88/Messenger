@@ -18,9 +18,7 @@ export default function SigninForm({ changeToSignup }) {
         }
 
         try {
-            const response = await userApi.post("/signin", data)
-            console.log("res;", response.data)
-
+            await userApi.post("/signin", data)
             localStorage.setItem("username", username)
 
             setIsSigninError(false)

@@ -1,0 +1,26 @@
+.input_container {
+    width: fit-content;
+    position: relative;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    .icon {
+        position: absolute;
+        top: 13px;
+        left: 15px;
+        color: rgb(100, 100, 100);
+        font-weight: bold;
+    }
+
+    .field {
+        width: 85vw;
+        font-size: 20px;
+        padding-left: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 25px;
+        border: none;
+        background-color: rgb(50, 50, 50);
+    }
+}

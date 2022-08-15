@@ -1,25 +1,117 @@
 .chats_wrapper{
     height: 100vh;
 
-    .chats{
-        height: 100%;
-        background-color: aqua;
+    // .chats{
+    //     height: 100%;
+    //     background-color: black;
 
-        @media screen and (min-width: 768px) {
+    //     @media screen and (min-width: 768px) {
             
-        }
-    }
+    //     }
+    // }
 
     .phone_view{
         height: 100%;
+        background-color: black;
 
-        .chats{
-            border: 2px black solid;
+        // .chat_header{
+        //     display: grid;
+        //     grid-template-columns: 15% auto 25%;
+        //     background-color: black;
+        //     width: 100%;
 
-            button{
-                background-color: blueviolet;
-            }
-        }
+        //     .profile_picture{
+        //         display: grid;
+
+        //         img{
+        //             border-radius: 50%;
+        //             height: 50px;
+        //             width: auto;
+        //             margin: auto;
+        //         }
+        //     }
+
+        //     .display_info{
+        //         display: flex;
+        //         flex-direction: column;
+        //         justify-content: center;
+        //         padding: 0px 10px;
+        //         color: white;
+
+        //         .title{
+        //             font-size: 30px;
+        //             font-weight: bold;
+        //         }
+        //     }
+
+        //     .links{
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: space-around;
+                
+        //         .link_icon{
+        //             font-size: 30px;
+        //             color: white;
+        //         }
+        //     }
+        // }
+
+        // .chats{
+        //     overflow-y: scroll;
+
+        //     .chat{
+        //         display: flex;
+        //         // border: 2px solid white;
+        //         height: fit-content;
+        //         padding: 10px 10px;
+
+        //         .profile_picture{
+        //             img{
+        //                 border-radius: 50%;
+        //                 height: 75px;
+        //                 width: auto;
+        //             }
+        //         }
+
+        //         .chat_description{
+        //             display: flex;
+        //             flex-direction: column;
+        //             justify-content: center;
+        //             color: white;
+        //             margin-left: 10px;
+                    
+        //             .username{
+        //                 margin-bottom: 5px;
+        //             }
+
+        //             .last_message_wrapper{
+        //                 display: flex;
+        //                 align-items: center;
+
+        //                 // The width for the message wrapper has to be hard coded to ensure it overflows 
+        //                 //correctly. 75vw just so happens to align up perfectly
+        //                 width: 75vw;
+
+        //                 .last_message{
+        //                     text-overflow: ellipsis;
+        //                     white-space: nowrap; 
+        //                     overflow: hidden;
+        //                     margin-right: 8px;
+        //                     max-width: 70%;
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     button{
+        //         background-color: blueviolet;
+        //     }
+        // }
+
+
+        // .chat_footer{
+        //     background-color: black;
+        // }
     
         @media screen and (min-width: 768px) {
             display: none;
@@ -31,7 +123,7 @@
         
         @media screen and (min-width: 768px) {
             display: grid;
-            
+
             height: 100%;
             grid-template-columns: 40% auto;
         }

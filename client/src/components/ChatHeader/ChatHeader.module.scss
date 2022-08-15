@@ -1,0 +1,41 @@
+.chat_header{
+    display: grid;
+    grid-template-columns: 15% auto 25%;
+    background-color: black;
+    width: 100%;
+
+    .profile_picture{
+        display: grid;
+
+        img{
+            border-radius: 50%;
+            height: 50px;
+            width: auto;
+            margin: auto;
+        }
+    }
+
+    .display_info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0px 10px;
+        color: white;
+
+        .title{
+            font-size: 30px;
+            font-weight: bold;
+        }
+    }
+
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        
+        .link_icon{
+            font-size: 30px;
+            color: white;
+        }
+    }
+}

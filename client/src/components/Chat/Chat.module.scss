@@ -1,0 +1,44 @@
+.chat{
+    display: flex;
+    // border: 2px solid white;
+    height: fit-content;
+    padding: 10px 10px;
+    background-color: black;
+
+    .profile_picture{
+        img{
+            border-radius: 50%;
+            height: 75px;
+            width: auto;
+        }
+    }
+
+    .chat_description{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        margin-left: 10px;
+        
+        .username{
+            margin-bottom: 5px;
+        }
+
+        .last_message_wrapper{
+            display: flex;
+            align-items: center;
+
+            // The width for the message wrapper has to be hard coded to ensure it overflows 
+            //correctly. 75vw just so happens to align up perfectly
+            width: 75vw;
+
+            .last_message{
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+                overflow: hidden;
+                margin-right: 8px;
+                max-width: 70%;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./ChatWindow.module.scss"
 
-export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, isMobile }) {
+export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }) {
     return (
         isChatWindowActive
         ?
