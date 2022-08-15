@@ -1,10 +1,76 @@
 .chat_window{
-    background-color: rgb(65, 142, 42);
+    display: grid;
+    grid-template-rows: 8% auto 10%;
+
+    background-color: black;
+    color: white;
     top: 0;
     left: 0;
     position: fixed;
     width: 100%;
     height: 100%;
+
+    .chat_header{
+        display: grid;
+        grid-template-columns: 10% 50% auto;
+        border: 2px solid yellow;
+
+        .arrow_wrapper{
+            margin: auto;
+            // border: 2px solid white;
+        }
+
+        .img_wrapper{
+            display: flex;
+            align-items: center;
+
+            img{
+                border-radius: 50%;
+                height: 40px;
+                width: auto;
+            }
+
+            .username{
+                margin-left: 10px;
+            }
+        }
+
+        .links_wrapper{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .icon{
+                font-size: 30px;
+                transition: 0.5s;
+
+                &:active{
+                    color: aqua;
+                }
+            }
+        }
+    }
+
+    .messages_wrapper{
+        border: 2px solid white;
+        overflow-y: scroll;
+    }
+
+    .input_wrapper{
+        border: 2px solid red;
+
+        input{
+            margin: auto;
+            width: 85%;
+            font-size: 20px;
+            padding-left: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgb(50, 50, 50);
+        }
+    }
 
     @media screen and (min-width: 768px) {
         background-color: darkorchid;
