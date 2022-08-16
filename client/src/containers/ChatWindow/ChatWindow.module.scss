@@ -39,9 +39,10 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            border: 2px solid red;
 
             .icon{
-                font-size: 30px;
+                font-size: 20px;
                 transition: 0.5s;
 
                 &:active{
