@@ -1,0 +1,33 @@
+.message{
+    width: fit-content;
+    max-width: 70%;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 20px;
+    font-size: 20px;
+
+    .message_text{
+        margin-bottom: 10px;
+    }
+
+    .date_wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .date{
+            font-size: 13px;
+            color: rgb(200, 200, 200);
+            margin-right: 10px;
+        }
+    }
+}
+
+.other_user_message{
+    background-color: rgb(100, 100, 100);
+}
+
+.your_message{
+    background-color: rgb(50, 126, 240);
+    align-self: flex-end;
+}

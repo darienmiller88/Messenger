@@ -16,8 +16,6 @@ export default function Chats({ signout }) {
         return(
             <div className={styles.phone_view}>
                 <ChatsContainer isChatWindowActive={isChatWindowActive} setIsChatWindowActive={() => setIsChatWindowActive(!isChatWindowActive)}/>
-
-                {/* Finally, the last section contains misc. info for display */}
                 <SearchWindow isSearchWindowActive={isSearchWindowActive} setIsSearchWindowActive={() => setIsSearchWindowActive(!isSearchWindowActive)}/>
                 <ChatWindow isChatWindowActive={isChatWindowActive} setIsChatWindowActive={() => setIsChatWindowActive(!isChatWindowActive)}/>
             </div>

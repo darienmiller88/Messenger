@@ -13,11 +13,9 @@
     .chat_header{
         display: grid;
         grid-template-columns: 10% 50% auto;
-        border: 2px solid yellow;
 
         .arrow_wrapper{
             margin: auto;
-            // border: 2px solid white;
         }
 
         .img_wrapper{
@@ -39,7 +37,6 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border: 2px solid red;
 
             .icon{
                 font-size: 20px;
@@ -53,23 +50,54 @@
     }
 
     .messages_wrapper{
-        border: 2px solid white;
+        display: flex;
+        align-items: flex-end;
         overflow-y: scroll;
+
+        .message_wrapper_inner{
+            display: flex;
+            overflow-y: scroll;
+            flex-direction: column;
+            align-self: flex-end;
+
+            width: 100%;
+            max-height: 100%;
+        }
     }
 
     .input_wrapper{
-        border: 2px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
 
-        input{
-            margin: auto;
-            width: 85%;
-            font-size: 20px;
-            padding-left: 20px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 25px;
-            border: none;
-            background-color: rgb(50, 50, 50);
+        .input_container{
+            position: relative;
+            width: 65%;
+
+            .message_input{
+                width: 95%;
+                font-size: 20px;
+                padding-left: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 25px;
+                border: none;
+                background-color: rgb(50, 50, 50);
+                color: white;
+            }
+
+            .icon {
+                position: absolute;
+                top: 10px;
+                right: 5px;
+                color: rgb(50, 126, 240);
+                font-weight: bold;
+            }
+        }
+
+        .icon{
+            font-size: 25px;
+            color: rgb(50, 126, 240);
         }
     }
 
@@ -79,6 +107,29 @@
         
         .show_chats{
             display: none;
+        }
+    }
+}
+
+.warning{
+    color: red;
+
+    h2{
+        text-align: center;
+    }
+
+    .button_wrapper{
+        text-align: center;
+
+        button{
+            margin: auto;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 20px 10px;
+            width: 50%;
+            background-color:  rgb(50, 126, 240);
+            color: white;
         }
     }
 }
