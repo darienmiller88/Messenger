@@ -17,8 +17,8 @@ export default function ChatsContainer({ isChatWindowActive, setIsChatWindowActi
             <div className={styles.chats}>
                 <Input />
                 {
-                    [10, 10, 10, 10, 10, 10, 10, 10, 10].map((chat, i) => {
-                            return <Chat key={i} openChatWindow={setIsChatWindowActive} />
+                    [10, 10, 10, 10, 10].map((chat, i) => {
+                        return <Chat key={i} openChatWindow={setIsChatWindowActive} />
                     })
                 }
             </div>

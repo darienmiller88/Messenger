@@ -84,7 +84,7 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }
             <div className={styles.input_wrapper}>
                 <BsCardImage className={styles.icon} />
                 <div className={styles.input_container}>
-                    <input placeholder='Aa' className={styles.message_input} value={inputText} onChange={e => setInputText(e.target.value)}/>
+                    <textarea rows={1} placeholder='Aa' className={styles.message_input} value={inputText} onChange={e => setInputText(e.target.value)}/>
                     <BsFillEmojiSmileFill className={styles.icon}/>
                 </div>  
                 {

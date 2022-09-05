@@ -15,7 +15,7 @@ import (
 )
 
 func main (){
-	godotenv.Load()
+	godotenv.Load("./env/.env")
 	database.InitDB()
 
 	index   := routes.Index{}
