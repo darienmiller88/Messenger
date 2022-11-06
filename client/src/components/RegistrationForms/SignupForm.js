@@ -29,6 +29,7 @@ export default function SignupForm({ changeToSignup }) {
 
         try {
             await userApi.post("/signup", data)
+            localStorage.setItem("username", username)
 
             setIsUsernameError(false)
             setIsPasswordError(false)

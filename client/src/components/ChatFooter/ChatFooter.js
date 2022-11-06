@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import "./ChatFooter.scss"
-import { BsFillPeopleFill, BsCameraVideoFill, BsMessenger } from "react-icons/bs"
+import { BsFillPeopleFill, BsFillPersonPlusFill, BsMessenger } from "react-icons/bs"
 import { BiMessageRounded } from "react-icons/bi"
+import { useNavigate } from "react-router-dom";
 
-export default function ChatFooter() {
+export default function ChatFooter({ initializeFirstIcon, initializeFriendReq}) {
     const [isFirstIconActive, setIsFirstIconActive] = useState(true)
     const [isSecondIconActive, setIsSecondIconActive] = useState(false)
     const [isThirdIconActive, setIsThirdIconActive] = useState(false)
+    const navigate = useNavigate()
 
     const changeActive = (e) => {
         console.log("target:", e.target.parentElement.parentElement.classList);
@@ -39,15 +41,15 @@ export default function ChatFooter() {
         <div className='chat_footer'>
             <div className={isFirstIconActive ? "icon_container icon_container_active" : "icon_container"} onClick={toggleFirstIcon}>
                 <div className='icon'>
-                    <BsMessenger />
+                    <BsMessenger onClick={() => navigate("/home")}/>
                 </div>
                 <div>Chats</div>
             </div>
             <div className={isSecondIconActive ? "icon_container icon_container_active" : "icon_container"} onClick={toggleSecondIcon}>
                 <div className='icon'>
-                    <BsCameraVideoFill />
+                    <BsFillPersonPlusFill onClick={() => navigate("/home/friend-requests")}/>
                 </div>
-                <div>Calls</div>
+                <div>Friend Requests</div>
             </div>
             <div className={isThirdIconActive ? "icon_container icon_container_active" : "icon_container"} onClick={toggleThirdIcon}>
                  <div className='icon'>

@@ -1,0 +1,85 @@
+.friend_requests_wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    color: white;
+
+    .icon{
+        margin: 20px;
+        font-size: 35px;
+        transition: 0.3s;
+
+        &:active{
+            color: var(--messenger-blue);
+        }
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    .friend_requests{
+        // border: 2px solid red;
+        height: 60vh;
+
+        .friend_request{
+            display: grid;
+            background-color: rgb(100, 100, 100);
+            grid-template-columns: 20% auto;
+
+            .user_image{
+                display: flex;
+                align-items: center;
+                margin: auto;
+
+                img{
+                    border-radius: 50%;
+                    height: 70px;
+                    width: auto;
+
+                }
+            }
+
+            .friend_request_information{
+                padding: 10px 5px;
+
+                .mutual_friends_wrapper{
+                    display: flex;
+                    margin: 5px 0px;
+                   
+                    .mutual_friends_icon{
+                        color: var(--messenger-blue);
+                    }
+
+                    .mutual_friends{
+                        margin-left: 8px;
+                    }
+                }
+            }
+
+            button{
+                border: none;
+                border-radius: 5px;
+                padding: 8px 42px;
+                font-weight: bold;
+                transition: 0.3s;
+
+                &:active{
+                    background-color: rgb(150, 150, 150);
+                }
+            }
+
+            .confirm{
+                margin-right: 6px;
+                color: white;
+                background-color: var(--messenger-blue);
+            }
+
+            .delete{
+                color: black;
+            }
+        }
+    }
+}

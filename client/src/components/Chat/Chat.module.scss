@@ -1,14 +1,14 @@
 .chat{
     display: flex;
-    // border: 2px solid white;
     height: fit-content;
-    padding: 10px 10px;
+    padding: 10px 5px;
     background-color: black;
+    transition: 0.3s;
 
     .profile_picture{
         img{
             border-radius: 50%;
-            height: 75px;
+            height: 65px;
             width: auto;
         }
     }
@@ -19,26 +19,34 @@
         justify-content: center;
         color: white;
         margin-left: 10px;
+        width: 100%;
         
         .username{
             margin-bottom: 5px;
         }
 
         .last_message_wrapper{
-            display: flex;
-            align-items: center;
-
-            // The width for the message wrapper has to be hard coded to ensure it overflows 
-            //correctly. 75vw just so happens to align up perfectly
-            width: 75vw;
+            display: grid;
+            grid-template-columns: 70% auto;
+            width: 100%;
 
             .last_message{
                 text-overflow: ellipsis;
                 white-space: nowrap; 
                 overflow: hidden;
                 margin-right: 8px;
-                max-width: 70%;
             }
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        &:hover{
+            cursor: pointer;
+            background-color: rgba(100, 100, 100, 0.8);
+        }
+
+        &:active{
+            background-color: rgba(150, 150, 150, 0.8);
         }
     }
 }

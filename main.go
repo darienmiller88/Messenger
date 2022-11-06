@@ -9,9 +9,8 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
-
-	"Messenger/api/routes"
 	"Messenger/api/database"
+	"Messenger/api/routes"
 )
 
 func main (){
@@ -31,6 +30,16 @@ func main (){
 	router.Use(middleware.Logger)
 	router.Mount("/api/v1", index.Router)
 
+	//
+	
+	// gosf.OnConnect(func(client *gosf.Client, request *gosf.Request) {
+	// 	fmt.Println("Client connected:", client)
+	// 	client.Join("public_chat")
+	// })
+	// gosf.Startup(map[string]interface{}{})
+
+
+	
 	fmt.Println("Listening on port:", os.Getenv("PORT"))
 	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), router)
 }

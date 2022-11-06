@@ -12,7 +12,7 @@ type User struct{
 	ID          uint      `gorm:"primaryKey"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
-	Username    string    `json:"username"     gorm:"type:string; size:20; unique; not null"`
+	Username    string    `json:"username"     gorm:"type:string; size:20;  unique; not null"`
 	Password    string    `json:"password"     gorm:"type:string; size:100; not null"`
 	Email       string    `json:"email"        gorm:"type:string"`
 	PhoneNumber string    `json:"phone_number" gorm:"type:string"`

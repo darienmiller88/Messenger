@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="./styles.css">
+        
+    </head>
+    <body>
+        <h1>Chat!</h1>
+        <div class="chat">
+            
+        </div>
+        <div class="input-wrapper">
+            <input />
+            <button onclick="appendMessage()">Send</button>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+        <script> 
+            const socket = io.connect('http://localhost:5000', { transports: ['websocket'] });
+            const chat = document.querySelector(".chat")
+            const input = document.querySelector("input")
+
+            socket.on("messenger", data => {
+                console.log("data from client:", data)
+                createMessage(data.text, "textee-message")
+            })
+
+            function appendMessage(){
+                createMessage(input.value, "your-message")
+                socket.emit('messenger', {text: input.value});
+                input.value = ""
+            }
+
+            function createMessage(messageText, className){
+                const message = document.createElement("div")
+                const inputValue = input.value
+                
+                message.className = className
+                message.textContent = messageText
+                chat.append(message)
+                chat.scrollTo(0, chat.scrollHeight)
+            }
+        </script>
+    </body>
+</html>

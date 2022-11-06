@@ -1,24 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "./ChatsContainer.module.scss"
-// import { BsFillPlusCircleFill } from "react-icons/bs"
 import ChatHeader from "../../components/ChatHeader/ChatHeader"
 import Chat from "../../components/Chat/Chat"
 import ChatFooter from "../../components/ChatFooter/ChatFooter"
 import Input from '../../components/Input/Input'
 
-export default function ChatsContainer({ isChatWindowActive, setIsChatWindowActive }) {
+export default function ChatsContainer({ signout, chatOnClick }) {
+    const [chats, setChats] = useState(["L.R.D.D", "Dalton", "Vicky"])
+
+    const addNewChat = (chatName) => {
+        setChats([...chats, chatName])
+    }
+
+    console.log("chats:", chats);
+
     return (
-        isChatWindowActive
-        ?
-        null
-        :
         <div className={styles.chats_container}>
-            <ChatHeader />
+            <ChatHeader signout={signout} addNewChat={addNewChat}/>
             <div className={styles.chats}>
                 <Input />
+                <Chat chatName={"Public"} isPublicChat={true} chatOnClick={() => chatOnClick("Public")}/>
                 {
-                    [10, 10, 10, 10, 10].map((chat, i) => {
-                        return <Chat key={i} openChatWindow={setIsChatWindowActive} />
+                    chats.map((chatName, i) => {
+                        return <Chat key={i} chatName={chatName} isPublicChat={false} chatOnClick={() => chatOnClick(chatName)}/>
                     })
                 }
             </div>

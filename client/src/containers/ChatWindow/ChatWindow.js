@@ -6,31 +6,26 @@ import { BiSend } from "react-icons/bi"
 import { BsFillTelephoneFill, BsCameraVideoFill, BsInfoCircleFill, BsFillEmojiSmileFill, BsCardImage } from "react-icons/bs"
 import me from "../../img/me.PNG"
 import Message from '../../components/Message/Message';
-import Modal from '../../components/Modal/Modal';
+import { Modal, openModal, closeModal } from '../../components/Modal/Modal';
+import io from "socket.io-client"
 
-export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }) {
+export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, chatName }) {
     const [isDeleteModalShowing, setIsDeleteModalShowing] = useState(false)
     const [inputText, setInputText] = useState("")
-    const [messages, setMessages] = useState([ "hehe", "red", "ehfd"])
-    const [previousScrollHeight, setPreviousScrollHeight] = useState(0)
+    const [messages, setMessages] = useState([])
     const messageWrapperInnerRef = useRef(null)
     const messagesEndRef = useRef(null)
-
+   
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({behavior: "smooth"})            
         }
     }, [messages])
 
-    const openModal = () => {
-        document.querySelector("body").style.overflow = "hidden"
-        setIsDeleteModalShowing(true)
-    }
+    useEffect(() => {
+      
+    })
 
-    const closeModal = () => {
-        document.querySelector("body").style.overflow = 'visible';
-        setIsDeleteModalShowing(false)
-    }
 
     const DeleteMessageWarning = () => {
         return(
@@ -48,6 +43,10 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }
         setInputText("")
     }
 
+    const appendThumbsUp = () => {
+        setMessages([...messages, '👍'])
+    }
+
     return (
         isChatWindowActive
         ?
@@ -58,7 +57,7 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }
                 </div>
                 <div className={styles.img_wrapper}>
                     <img src={me} alt="profile-pic"/>
-                    <div className={styles.username}>darien88</div>
+                    <div className={styles.username}>{chatName}</div>
                 </div>
                 <div className={styles.links_wrapper}>
                     <BsFillTelephoneFill className={styles.icon} />
@@ -71,7 +70,10 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }
                 <div className={styles.message_wrapper_inner} ref={messageWrapperInnerRef}>
                     {
                         messages.map((message, i) => {
-                            return <Message key={i} isYourMessage={i % 2 === 0 ? true : false} openModal={openModal} message={message}/>
+                            return message === '👍' ?
+                            <div className={i % 2 === 0 ? styles.your_thumbs_up : styles.other_thumbs_up}>{ message }</div>
+                            :
+                            <Message key={i} isYourMessage={i % 2 === 0 ? true : false} openModal={() => openModal(setIsDeleteModalShowing)} message={message}/>
                         })
                     }
 
@@ -90,15 +92,15 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive }
                 {
                     inputText.length === 0
                     ?
-                    <FaThumbsUp className={styles.icon} />
+                    <FaThumbsUp className={`${styles.icon} ${styles.add_message}`} onClick={appendThumbsUp} />
                     :
-                    <BiSend className={styles.icon} onClick={appendMessage}/>
+                    <BiSend className={`${styles.icon} ${styles.add_message}`} onClick={appendMessage}/>
                 }
             </div>
 
             <Modal 
                 show={isDeleteModalShowing}
-                onHide={closeModal}
+                onHide={() => closeModal(setIsDeleteModalShowing)}
                 modalHeader={"Delete Message"}
                 modalContent={<DeleteMessageWarning />}
             />

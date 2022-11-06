@@ -1,7 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 import styles from "./Modal.module.scss"
 
-export default function Modal({show, onHide, modalHeader, modalContent}) {
+//Expects a function that takes a boolean to set the variable passed to "show" parameter to true or false.
+export const openModal = (setIsModalShowing) => {
+    document.querySelector("body").style.overflow = "hidden"
+    setIsModalShowing(true)
+}
+
+//Expects a function that takes a boolean to set the variable passed to "show" parameter to true or false.
+export const closeModal = (setIsModalShowing) => {
+    document.querySelector("body").style.overflow = 'visible';
+    setIsModalShowing(false)
+}
+
+export const Modal = ({show, onHide, modalHeader, modalContent}) => {
     const modalRef = useRef(null)
 
     useEffect(() => {

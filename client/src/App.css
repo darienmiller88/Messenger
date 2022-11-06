@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@700&family=Kanit:wght@300&family=Open+Sans:wght@300&family=Oswald:wght@300;400&family=Rubik:ital,wght@0,500;1,900&display=swap');
 
+:root{
+    --messenger-blue: rgb(50, 126, 240);
+}
+
 body{
     margin: 0;
 

@@ -1,6 +1,6 @@
 .chat_header{
     display: grid;
-    grid-template-columns: 15% auto 25%;
+    grid-template-columns: 15% auto 30%;
     background-color: black;
     width: 100%;
 
@@ -23,7 +23,7 @@
         color: white;
 
         .title{
-            font-size: 30px;
+            font-size: 25px;
             font-weight: bold;
         }
     }
@@ -36,6 +36,46 @@
         .link_icon{
             font-size: 30px;
             color: white;
+            transition: 0.3s;
+
+            &:hover{
+                cursor: pointer;
+                color: rgba(150, 150, 150, 0.8);
+            }
+
+            &:active{
+                color: var(--messenger-blue);
+            }
+        }
+    }
+}
+
+.add_new_chat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 2px solid red;
+
+    .input_wrapper{
+        text-align: center;
+    }
+
+    input{
+        font-size: 18px;
+        // margin-left: 5px;
+        // width: 50%;
+    }
+
+    button{
+        margin: auto;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 25px;
+        color: white;
+        background-color: var(--messenger-blue);
+
+        &:hover{
+            cursor: pointer;
         }
     }
 }

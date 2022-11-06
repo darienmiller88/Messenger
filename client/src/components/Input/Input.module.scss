@@ -1,5 +1,5 @@
 .input_container {
-    width: fit-content;
+    width: 95%;
     position: relative;
     margin: auto;
     margin-bottom: 10px;
@@ -22,5 +22,9 @@
         border-radius: 25px;
         border: none;
         background-color: rgb(50, 50, 50);
+
+        @media screen and (min-width: 992px) {
+            width: 85%;
+        }
     }
 }

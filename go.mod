@@ -11,8 +11,18 @@ require (
 )
 
 require (
+	github.com/ambelovsky/go-structs v1.1.0 // indirect
+	github.com/ambelovsky/gosf v0.0.0-20201109201340-237aea4d6109 // indirect
+	github.com/ambelovsky/gosf-socketio v0.0.0-20220810204405-0f97832ec7af // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
+	github.com/darienmiller88/WebSocketServer v0.0.0-20221105193108-0f52a0e86121 // indirect
+	github.com/djherbis/socket v0.9.1 // indirect
 	github.com/goccy/go-json v0.3.5 // indirect
+	github.com/gofrs/uuid v4.0.0+incompatible // indirect
+	github.com/gomodule/redigo v1.8.4 // indirect
+	github.com/google/uuid v1.3.0 // indirect
+	github.com/googollee/go-socket.io v1.6.2 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -26,6 +36,7 @@ require (
 	github.com/lestrrat-go/iter v1.0.0 // indirect
 	github.com/lestrrat-go/jwx v1.1.0 // indirect
 	github.com/lestrrat-go/option v1.0.0 // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/text v0.3.7 // indirect
 )

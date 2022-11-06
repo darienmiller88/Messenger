@@ -1,0 +1,50 @@
+h1{
+    text-align: center;
+}
+
+.chat{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    width: 70vw;
+    height: 50vh;
+    margin: auto;
+    overflow-y: scroll;
+}
+
+.input-wrapper{
+    display: grid;
+    grid-template-columns: 80% auto;
+    margin: auto;
+    width: 70vw;
+}
+
+.input-wrapper input{
+    font-size: 25px;
+}
+
+.your-message{
+    background-color: gray;
+    width: fit-content;
+    max-width: 40%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 15px 15px;
+
+    align-self: flex-end;
+}
+
+.textee-message{
+    background-color: aqua;
+    width: fit-content;
+    max-width: 40%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 15px 15px;
+}
+
+@media screen and (min-width: 992px) {
+    .chat, .input-wrapper{
+        width: 40vw;
+    }
+}
