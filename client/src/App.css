@@ -13,3 +13,25 @@ body{
     font-family: 'Oswald', sans-serif;
     font-family: 'Rubik', sans-serif;
 }
+
+::-webkit-scrollbar {
+    width: 2px;    
+    height: 0px;  
+    transition: 0.3s;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--messenger-blue); 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: red; 
+}
