@@ -8,7 +8,7 @@ import me from "../../img/me.PNG"
 import Message from '../../components/Message/Message';
 import { Modal, openModal, closeModal } from '../../components/Modal/Modal';
 
-const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "https://facebookmessengerapi.herokuapp.com/ws")
+const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "ws://facebookmessengerapi.herokuapp.com/ws")
 
 export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, chatName }) {
     const [isDeleteModalShowing, setIsDeleteModalShowing] = useState(false)
