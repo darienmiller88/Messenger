@@ -8,9 +8,11 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
+	"github.com/darienmiller88/WebSocketServer"
 	"github.com/joho/godotenv"
 	"Messenger/api/database"
 	"Messenger/api/routes"
+
 )
 
 func main (){
@@ -19,6 +21,7 @@ func main (){
 
 	index   := routes.Index{}
 	router  := chi.NewRouter()
+	ws      := WebsocketServer.NewSocketServer(true)
 	newCors := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000", "https://facebookmessenger.netlify.app"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -29,6 +32,12 @@ func main (){
 	router.Use(newCors.Handler)
 	router.Use(middleware.Logger)
 	router.Mount("/api/v1", index.Router)
+
+	router.Get("/ws", func(res http.ResponseWriter, req *http.Request) {
+		WebsocketServer.ServeWebSocketServer(ws, res, req)
+	})
+
+	go ws.Start()
 
 	//
 	

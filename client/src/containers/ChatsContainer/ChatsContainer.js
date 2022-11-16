@@ -6,7 +6,7 @@ import ChatFooter from "../../components/ChatFooter/ChatFooter"
 import Input from '../../components/Input/Input'
 
 export default function ChatsContainer({ signout, chatOnClick }) {
-    const [chats, setChats] = useState(["L.R.D.D", "Dalton", "Vicky"])
+    const [chats, setChats] = useState([])
 
     const addNewChat = (chatName) => {
         setChats([...chats, chatName])

@@ -49,10 +49,10 @@ export default function SigninForm({ changeToSignup }) {
             {
                 isSigninError ? <div className={styles.error}>{signinError}</div> : null
             }
-            {/* <button onClick={login} className={styles.login_button}>Login</button> */}
+            {/* <button onClick={login} className={styles.login_button}>Login</button>
             <br/>
             <div className={styles.forgot}>Forgot your password?</div>
-            {/* <button onClick={changeToSignup} className={styles.create_account}>Create Account</button> */}
+            <button onClick={changeToSignup} className={styles.create_account}>Create Account</button> */}
             <button onClick={() => navigate("/home")}>Check out home page!</button>
         </div>
     )

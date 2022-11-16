@@ -7,7 +7,8 @@ import { BsFillTelephoneFill, BsCameraVideoFill, BsInfoCircleFill, BsFillEmojiSm
 import me from "../../img/me.PNG"
 import Message from '../../components/Message/Message';
 import { Modal, openModal, closeModal } from '../../components/Modal/Modal';
-import io from "socket.io-client"
+
+const socket = new WebSocket("ws://localhost:8080/ws")
 
 export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, chatName }) {
     const [isDeleteModalShowing, setIsDeleteModalShowing] = useState(false)
@@ -15,17 +16,34 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
     const [messages, setMessages] = useState([])
     const messageWrapperInnerRef = useRef(null)
     const messagesEndRef = useRef(null)
-   
+    
+    useEffect(() => {
+        socket.onopen = () => {
+            console.log("Successfully Connected");
+        }
+
+        socket.onmessage = msg => {
+            const parsedMessage = JSON.parse(msg.data)
+            
+            console.log(parsedMessage);
+            setMessages(prevState => [...prevState, {isYourMessage: false, body: parsedMessage.body}])
+            // appendMessage(parsedMessage.body, "other-message")
+        };
+
+        socket.onclose = event => {
+            console.log("Socket Closed Connection: ", event);
+        };
+
+        socket.onerror = error => {
+            console.log("Socket Error: ", error);
+        };
+    }, [])
+
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({behavior: "smooth"})            
         }
     }, [messages])
-
-    useEffect(() => {
-      
-    })
-
 
     const DeleteMessageWarning = () => {
         return(
@@ -39,12 +57,14 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
     }
 
     const appendMessage = () => {
-        setMessages([...messages, inputText])
-        setInputText("")
+        setMessages([...messages, {body: inputText, isYourMessage: true}])
+        setInputText("")      
+        socket.send(inputText)
     }
 
     const appendThumbsUp = () => {
-        setMessages([...messages, '👍'])
+        setMessages([...messages, {body: '👍', isYourMessage: true}])
+        socket.send('👍')
     }
 
     return (
@@ -70,10 +90,10 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
                 <div className={styles.message_wrapper_inner} ref={messageWrapperInnerRef}>
                     {
                         messages.map((message, i) => {
-                            return message === '👍' ?
-                            <div className={i % 2 === 0 ? styles.your_thumbs_up : styles.other_thumbs_up}>{ message }</div>
+                            return message.body === '👍' ?
+                            <div key={i} className={message.isYourMessage ? styles.your_thumbs_up : styles.other_thumbs_up }>{ message.body }</div>
                             :
-                            <Message key={i} isYourMessage={i % 2 === 0 ? true : false} openModal={() => openModal(setIsDeleteModalShowing)} message={message}/>
+                            <Message key={i} isYourMessage={message.isYourMessage} openModal={() => openModal(setIsDeleteModalShowing)} message={message.body}/>
                         })
                     }
 
@@ -86,7 +106,13 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
             <div className={styles.input_wrapper}>
                 <BsCardImage className={styles.icon} />
                 <div className={styles.input_container}>
-                    <textarea rows={1} placeholder='Aa' className={styles.message_input} value={inputText} onChange={e => setInputText(e.target.value)}/>
+                    <textarea 
+                        rows={1} 
+                        placeholder='Aa' 
+                        className={styles.message_input} 
+                        value={inputText} 
+                        onChange={e => setInputText(e.target.value)}
+                    />
                     <BsFillEmojiSmileFill className={styles.icon}/>
                 </div>  
                 {

@@ -16,7 +16,7 @@ export default function Home() {
                 const response = await userApi.get(`/${localStorage.getItem("username")}`)
                 console.log("res:", response);
             } catch (error) {
-                // console.log("err:", error);
+                console.log("err:", error);
                 // if (error.response.data["tokenError"]){
                 //     console.log("err: ", error.response.data["tokenError"])
                 //     navigate("/")
