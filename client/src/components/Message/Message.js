@@ -7,6 +7,7 @@ export default function Message({ isYourMessage, openModal, message }) {
         <>
             <div className={`${isYourMessage ? styles.your_message : styles.other_user_message} ${styles.message}`}>
                 <div className={styles.message_text}>{ message }</div>   
+                <div className={styles.username}>darien88</div>
                 <div className={styles.date_wrapper}>
                     <div className={styles.date}>9/12/2022 12:30 AM</div>
                     <AiOutlineMore className={styles.delete} onClick={openModal} />

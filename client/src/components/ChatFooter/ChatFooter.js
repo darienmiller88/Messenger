@@ -36,18 +36,19 @@ export default function ChatFooter({ initializeFirstIcon, initializeFriendReq}) 
         setIsSecondIconActive(false)
         setIsThirdIconActive(true)
     }
-
+// onClick={() => navigate("/home/friend-requests")}
+//onClick={() => navigate("/home")}
     return (
         <div className='chat_footer'>
             <div className={isFirstIconActive ? "icon_container icon_container_active" : "icon_container"} onClick={toggleFirstIcon}>
                 <div className='icon'>
-                    <BsMessenger onClick={() => navigate("/home")}/>
+                    <BsMessenger />
                 </div>
                 <div>Chats</div>
             </div>
             <div className={isSecondIconActive ? "icon_container icon_container_active" : "icon_container"} onClick={toggleSecondIcon}>
                 <div className='icon'>
-                    <BsFillPersonPlusFill onClick={() => navigate("/home/friend-requests")}/>
+                    <BsFillPersonPlusFill />
                 </div>
                 <div>Friend Requests</div>
             </div>

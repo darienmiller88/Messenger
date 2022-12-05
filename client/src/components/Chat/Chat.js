@@ -6,6 +6,7 @@ import defaultPic from "../../img/default.jpg"
 
 export default function Chat({ chatName, isPublicChat, chatOnClick }) {
     return (
+        // onClick={chatOnClick}
         <div className={styles.chat} onClick={chatOnClick} > 
             <div className={styles.profile_picture}>
                 <img src={isPublicChat ? p : defaultPic} alt="me" />

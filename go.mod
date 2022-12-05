@@ -15,7 +15,7 @@ require (
 	github.com/ambelovsky/gosf v0.0.0-20201109201340-237aea4d6109 // indirect
 	github.com/ambelovsky/gosf-socketio v0.0.0-20220810204405-0f97832ec7af // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
-	github.com/darienmiller88/WebSocketServer v0.0.0-20221105193108-0f52a0e86121 // indirect
+	github.com/darienmiller88/WebSocketServer v0.0.0-20221117202526-2ef0ff6b02e4 // indirect
 	github.com/djherbis/socket v0.9.1 // indirect
 	github.com/goccy/go-json v0.3.5 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect

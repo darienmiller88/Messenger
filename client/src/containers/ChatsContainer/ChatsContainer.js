@@ -9,7 +9,7 @@ export default function ChatsContainer({ signout, chatOnClick }) {
     const [chats, setChats] = useState([])
 
     const addNewChat = (chatName) => {
-        setChats([...chats, chatName])
+        setChats(prevState => [...prevState, chatName])
     }
 
     console.log("chats:", chats);

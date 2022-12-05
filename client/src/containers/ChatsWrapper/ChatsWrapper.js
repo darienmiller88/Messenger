@@ -3,6 +3,7 @@ import styles from "./ChatsWrapper.module.scss"
 import ChatWindow from '../ChatWindow/ChatWindow'
 import SearchWindow from '../SearchWindow/SearchWindow'
 import ChatsContainer from '../ChatsContainer/ChatsContainer'
+import Sidebar from '../../components/Sidebar/Sidebar'
 import { useNavigate } from "react-router-dom";
 
 export default function ChatsWrapper({ signout }) {
@@ -17,8 +18,9 @@ export default function ChatsWrapper({ signout }) {
     }
 
     const openChatWindowDesktop = (chatName) => {
-        setChatName(chatName)
-        localStorage.setItem("chat_name", chatName)
+        console.log("chatname:", chatName);
+        // setChatName(chatName)
+        // localStorage.setItem("chat_name", chatName)
     }
 
     const PhoneView = () => {
@@ -33,6 +35,7 @@ export default function ChatsWrapper({ signout }) {
     const DesktopView = () => {
         return(
             <div className={styles.desktop_view}>
+                <Sidebar />
                 <ChatsContainer signout={signout} chatOnClick={openChatWindowDesktop} />
                 <ChatWindow isChatWindowActive={true} chatName={chatName}/>
             </div>

@@ -55,7 +55,6 @@ func (u *UserController) GetUser(res http.ResponseWriter, req *http.Request){
 func (u *UserController) DeleteUser(res http.ResponseWriter, req *http.Request){
 	username := chi.URLParam(req, "username")
 	user     := models.User{}
-
 	u.db.Where("username = ?", username).Delete(&user)
 
 	u.r.JSON(res, http.StatusOK, jsonBody{"deleting": "deleting user"})

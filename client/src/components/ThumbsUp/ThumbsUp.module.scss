@@ -1,0 +1,18 @@
+.thumbs_up_wrapper{
+    .username{
+        font-size: 13px;
+        color: rgb(200, 200, 200);
+    }
+}
+
+.your_thumbs_up{
+    margin: 20px;
+    font-size: 50px;
+    align-self: flex-end;
+}
+
+.other_thumbs_up{
+    margin: 20px;
+    font-size: 50px;
+    align-self: flex-start;
+}

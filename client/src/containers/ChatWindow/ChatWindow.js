@@ -6,6 +6,7 @@ import { BiSend } from "react-icons/bi"
 import { BsFillTelephoneFill, BsCameraVideoFill, BsInfoCircleFill, BsFillEmojiSmileFill, BsCardImage } from "react-icons/bs"
 import me from "../../img/me.PNG"
 import Message from '../../components/Message/Message';
+import ThumbsUp from '../../components/ThumbsUp/ThumbsUp';
 import { Modal, openModal, closeModal } from '../../components/Modal/Modal';
 
 const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://facebookmessengerapi.herokuapp.com/ws")
@@ -27,7 +28,6 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
             
             console.log(parsedMessage);
             setMessages(prevState => [...prevState, {isYourMessage: false, body: parsedMessage.body}])
-            // appendMessage(parsedMessage.body, "other-message")
         };
 
         socket.onclose = event => {
@@ -59,12 +59,12 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
     const appendMessage = () => {
         setMessages([...messages, {body: inputText, isYourMessage: true}])
         setInputText("")      
-        socket.send(inputText)
+        socket.send(JSON.stringify({body: inputText, username: "darien88"}))
     }
 
     const appendThumbsUp = () => {
         setMessages([...messages, {body: '👍', isYourMessage: true}])
-        socket.send('👍')
+        socket.send(JSON.stringify({body: '👍', username: "darien88"}))
     }
 
     return (
@@ -91,7 +91,8 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
                     {
                         messages.map((message, i) => {
                             return message.body === '👍' ?
-                            <div key={i} className={message.isYourMessage ? styles.your_thumbs_up : styles.other_thumbs_up }>{ message.body }</div>
+                            <ThumbsUp isYourThumbsUp={message.isYourMessage} username={"darien88"}/>
+                            // <div key={i} className={message.isYourMessage ? styles.your_thumbs_up : styles.other_thumbs_up }>{ message.body }</div>
                             :
                             <Message key={i} isYourMessage={message.isYourMessage} openModal={() => openModal(setIsDeleteModalShowing)} message={message.body}/>
                         })

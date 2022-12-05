@@ -13,6 +13,10 @@
             width: auto;
             margin: auto;
         }
+
+        @media screen and (min-width: 992px) {
+            display: none;
+        }
     }
 
     .display_info{
@@ -32,6 +36,7 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
+        // border: 2px red solid;
         
         .link_icon{
             font-size: 30px;
@@ -46,7 +51,16 @@
             &:active{
                 color: var(--messenger-blue);
             }
+
+            @media screen and (min-width: 992px) {
+                margin-right: 20px;
+            }
         }
+    }
+
+    @media screen and (min-width: 992px) {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
