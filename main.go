@@ -12,7 +12,7 @@ import (
 	"Messenger/api/database"
 	"Messenger/api/routes"
 	"Messenger/api/controllers"
-	"Messenger/WebSocketServer"
+	"Messenger/socketserver"
 )
 
 func main (){
@@ -22,7 +22,7 @@ func main (){
 	api              := routes.API{}
 	socketController := controllers.SocketController{}
 	router           := chi.NewRouter()
-	ws               := WebsocketServer.NewSocketServer(true)
+	ws               := socketServer.NewSocketServer(true)
 	newCors          := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000", "https://facebookmessenger.netlify.app"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -36,7 +36,7 @@ func main (){
 	router.Mount("/api/v1", api.Router)
 
 	router.Get("/ws", func(res http.ResponseWriter, req *http.Request) {
-		WebsocketServer.ServeWebSocketServer(ws, res, req)
+		socketServer.ServeWebSocketServer(ws, res, req)
 	})
 
 	go ws.Start(socketController.AddPublicMessage)
