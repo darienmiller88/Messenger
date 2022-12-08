@@ -16,7 +16,7 @@ type client struct {
 type message struct {
     Type      int    `json:"type"`
     Body      string `json:"body"`
-    Username  string 
+    Username  string `json:"username"`
     ClientID  string 
 }
 
@@ -35,16 +35,19 @@ func (c *client) processMessage(ws *WebsocketServer){
             return
         }
 
-        messageMap := make(map[string]string)
-        json.Unmarshal(messageBody, &messageMap)
-        message := message{
-            Type:     messageType, 
-            Body:     messageMap["body"], 
-            Username: messageMap["username"], 
-            ClientID: c.ID,
-        }
+        clientMessage := message{}
+        json.Unmarshal(messageBody, &clientMessage)
+        clientMessage.ClientID = c.ID
+        clientMessage.Type = messageType
+
+        // message := message{
+        //     Type:     messageType, 
+        //     Body:     messageMap["body"], 
+        //     Username: messageMap["username"], 
+        //     ClientID: c.ID,
+        // }
     
-        ws.Broadcast <- message
-        fmt.Printf("Message Received: %+v\n", message)
+        ws.Broadcast <- clientMessage
+        fmt.Printf("Message Received: %+v\n", clientMessage)
     }
 }
