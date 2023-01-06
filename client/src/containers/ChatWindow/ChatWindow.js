@@ -7,64 +7,101 @@ import { BsFillTelephoneFill, BsCameraVideoFill, BsInfoCircleFill, BsFillEmojiSm
 import me from "../../img/me.PNG"
 import Message from '../../components/Message/Message';
 import ThumbsUp from '../../components/ThumbsUp/ThumbsUp';
-import { Modal, openModal, closeModal } from '../../components/Modal/Modal';
+import { messageApi } from "../../components/api/api"
 
-const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://facebookmessengerapi.herokuapp.com/ws")
+const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "ws://facebookmessengerapi.fly.dev/ws")
 
 export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, chatName }) {
-    const [isDeleteModalShowing, setIsDeleteModalShowing] = useState(false)
     const [inputText, setInputText] = useState("")
     const [messages, setMessages] = useState([])
+    const [isInputDisabled, setIsInputDisabled] = useState(false)
+    const [isThumbsUpDisabled, setIsThumbsUpDisabled] = useState(false)
     const messageWrapperInnerRef = useRef(null)
     const messagesEndRef = useRef(null)
     
     useEffect(() => {
-        socket.onopen = () => {
-            console.log("Successfully Connected");
-        }
+        (async () => {
+            const messagesResponse = await messageApi.get()
 
-        socket.onmessage = msg => {
-            const parsedMessage = JSON.parse(msg.data)
-            
-            console.log(parsedMessage);
-            setMessages(prevState => [...prevState, {isYourMessage: false, body: parsedMessage.body}])
-        };
-
-        socket.onclose = event => {
-            console.log("Socket Closed Connection: ", event);
-        };
-
-        socket.onerror = error => {
-            console.log("Socket Error: ", error);
-        };
+            messagesResponse.data.forEach(message => {
+                setMessages(messages => [...messages, {...message, isYourMessage: true}])
+            })
+    
+            socket.onopen = () => {
+                console.log("Successfully Connected");
+            }
+    
+            socket.onmessage = msg => {
+                const parsedMessage = JSON.parse(msg.data)
+                
+                if(parsedMessage.type === 1){
+                    console.log(parsedMessage);
+                    setMessages(prevState => [...prevState, {
+                        isYourMessage: false, 
+                        message_content: parsedMessage.message_content, 
+                        username: parsedMessage.username, 
+                        message_date: parsedMessage.message_date
+                    }])
+                }else{
+                    console.log("User connected:", parsedMessage.body);
+                }
+            };
+    
+            socket.onclose = event => {
+                console.log("Socket Closed Connection: ", event);
+            };
+    
+            socket.onerror = error => {
+                console.log("Socket Error: ", error);
+            };
+        })()
     }, [])
 
     useEffect(() => {
         if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({behavior: "smooth"})            
+            messagesEndRef.current.scrollIntoView()            
         }
     }, [messages])
 
-    const DeleteMessageWarning = () => {
-        return(
-            <div className={styles.warning}>
-                <h2>Are you sure want to delete this message?</h2>
-                <div className={styles.button_wrapper}>
-                    <button onClick={closeModal}>Delete Message</button>
-                </div>
-            </div>
-        )
-    }
-
     const appendMessage = () => {
-        setMessages([...messages, {body: inputText, isYourMessage: true}])
+        const message = {
+            message_content: inputText, 
+            message_date:    new Date().toLocaleString(), 
+            username:        "darien88", 
+        }
+
+        setMessages([...messages, {...message, isYourMessage: true}])
         setInputText("")      
-        socket.send(JSON.stringify({body: inputText, username: "darien88"}))
+        socket.send(JSON.stringify(message))
+        setIsInputDisabled(true)
+
+        setTimeout(() => {
+            setIsInputDisabled(false)
+        }, 1500);
     }
 
     const appendThumbsUp = () => {
-        setMessages([...messages, {body: '👍', isYourMessage: true}])
-        socket.send(JSON.stringify({body: '👍', username: "darien88"}))
+        const message = {
+            message_content: '👍', 
+            message_date:    new Date().toLocaleString(),
+            username:        "darien88"
+        }
+
+        setMessages([...messages, {...message, isYourMessage: true}])
+        socket.send(JSON.stringify(message))
+        setIsThumbsUpDisabled(true)
+
+        setTimeout(() => {
+            setIsThumbsUpDisabled(false)
+        }, 2000);
+    }
+
+    const removeMessage = (messageToDelete) => {
+        setMessages(messages.filter(message => {
+            return !(message.message_content === messageToDelete.message_content
+            && message.message_date === messageToDelete.message_date
+            && message.username === messageToDelete.username)
+        }))
     }
 
     return (
@@ -92,9 +129,15 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
                         messages.map((message, i) => {
                             return message.body === '👍' ?
                             <ThumbsUp isYourThumbsUp={message.isYourMessage} username={"darien88"}/>
-                            // <div key={i} className={message.isYourMessage ? styles.your_thumbs_up : styles.other_thumbs_up }>{ message.body }</div>
                             :
-                            <Message key={i} isYourMessage={message.isYourMessage} openModal={() => openModal(setIsDeleteModalShowing)} message={message.body}/>
+                            <Message 
+                                key={i} 
+                                isYourMessage={message.isYourMessage} 
+                                message_content={message.message_content}
+                                message_date={message.message_date}
+                                username={message.username}
+                                removeMessage={removeMessage}
+                            />
                         })
                     }
 
@@ -113,24 +156,20 @@ export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, 
                         className={styles.message_input} 
                         value={inputText} 
                         onChange={e => setInputText(e.target.value)}
+                        disabled={isInputDisabled}
                     />
                     <BsFillEmojiSmileFill className={styles.icon}/>
                 </div>  
                 {
-                    inputText.length === 0
-                    ?
+                    inputText.length > 0 ?
+                    <BiSend className={`${styles.icon} ${styles.add_message}`} onClick={appendMessage} disabled={isThumbsUpDisabled}/>
+                    :
+                    inputText.length === 0 && !isThumbsUpDisabled ?
                     <FaThumbsUp className={`${styles.icon} ${styles.add_message}`} onClick={appendThumbsUp} />
                     :
-                    <BiSend className={`${styles.icon} ${styles.add_message}`} onClick={appendMessage}/>
+                    null
                 }
             </div>
-
-            <Modal 
-                show={isDeleteModalShowing}
-                onHide={() => closeModal(setIsDeleteModalShowing)}
-                modalHeader={"Delete Message"}
-                modalContent={<DeleteMessageWarning />}
-            />
         </div>
         :
         null

@@ -12,13 +12,13 @@ export default function SigninForm({ changeToSignup }) {
     const navigate = useNavigate()
 
     const login = async () => {
-        const data = {
+        const signinInfo = {
             username,
             password
         }
 
         try {
-            await userApi.post("/signin", data)
+            await userApi.post("/signin", signinInfo)
             localStorage.setItem("username", username)
 
             setIsSigninError(false)

@@ -12,8 +12,11 @@ func (a *API) Init(){
 	a.Router = chi.NewRouter()
 
 	userRoutes := UserRoutes{}
+	messageRoutes := MessageRoutes{}
 
 	userRoutes.Init()
+	messageRoutes.Init()
 
 	a.Router.Mount("/users", userRoutes.Router)
+	a.Router.Mount("/messages", messageRoutes.Router)
 }

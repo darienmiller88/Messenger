@@ -11,6 +11,15 @@
         overflow-wrap: break-word;        
     }
 
+    .delete{
+        transition: 0.3s;        
+
+        &:hover{
+            cursor: pointer;
+            color: black;
+        }
+    }
+
     .username{
         font-size: 13px;
         color: rgb(200, 200, 200);
@@ -35,6 +44,33 @@
 }
 
 .your_message{
-    background-color: rgb(50, 126, 240);
+    background-color: var(--messenger-blue);
     align-self: flex-end;
+}
+
+.warning{
+    color: red;
+
+    h2{
+        text-align: center;
+    }
+
+    .button_wrapper{
+        text-align: center;
+
+        button{
+            margin: auto;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 10px 20px;
+            // width: 50%;
+            background-color: var(--messenger-blue);
+            color: white;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }

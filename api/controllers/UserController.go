@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"encoding/json"
 
 	"Messenger/api/database"
 	"Messenger/api/models"
@@ -55,9 +56,15 @@ func (u *UserController) GetUser(res http.ResponseWriter, req *http.Request){
 func (u *UserController) DeleteUser(res http.ResponseWriter, req *http.Request){
 	username := chi.URLParam(req, "username")
 	user     := models.User{}
+
+	if err := json.NewDecoder(req.Body).Decode(&user); err != nil{
+		u.r.JSON(res, http.StatusBadRequest, jsonBody{"err": err})
+		return
+	}
+
 	u.db.Where("username = ?", username).Delete(&user)
 
-	u.r.JSON(res, http.StatusOK, jsonBody{"deleting": "deleting user"})
+	u.r.JSON(res, http.StatusOK, jsonBody{"deleting": user})
 }
 
 func (u *UserController) Signup(res http.ResponseWriter, req *http.Request) {

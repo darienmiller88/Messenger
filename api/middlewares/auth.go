@@ -35,7 +35,7 @@ func Auth(next http.Handler) http.Handler{
 
 		//Parse the token and pull out the username from the token.
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-			req = req.WithContext(context.WithValue(req.Context(), "claims", claims))
+			req = req.WithContext(context.WithValue(req.Context(), "username", claims["username"]))
 		}
 		
 		next.ServeHTTP(res, req)

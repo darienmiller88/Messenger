@@ -166,26 +166,3 @@
         }
     }
 }
-
-.warning{
-    color: red;
-
-    h2{
-        text-align: center;
-    }
-
-    .button_wrapper{
-        text-align: center;
-
-        button{
-            margin: auto;
-            border: none;
-            border-radius: 10px;
-            font-size: 20px;
-            padding: 20px 10px;
-            width: 50%;
-            background-color:  rgb(50, 126, 240);
-            color: white;
-        }
-    }
-}

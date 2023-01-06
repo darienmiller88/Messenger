@@ -4,7 +4,6 @@ import (
 	"Messenger/api/database"
 	"Messenger/api/models"
 	"fmt"
-	"time"
 
 	"gorm.io/gorm"
 )
@@ -17,15 +16,11 @@ func (s *SocketController) Init(){
 	s.db = database.GetDB()
 }
 
-func (s *SocketController) AddPublicMessage(message map[string]string) {
-	messageModel := models.Message{}
-
-	messageModel.MessageContent = message["body"]
-	messageModel.Name           = message["username"]
-	messageModel.MessageDate    = time.Now()
-	messageModel.ChatID         = 5
+func (s *SocketController) AddPublicMessage(message models.Message) {
+	message.ChatID = 5
+	message.ChatName = "public"
 		
-	if err := s.db.Create(&messageModel).Error; err != nil{
+	if err := s.db.Create(&message).Error; err != nil{
 		fmt.Println(err)
 	}
 }

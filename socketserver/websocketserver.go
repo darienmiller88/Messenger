@@ -1,6 +1,10 @@
 package socketServer
 
-import "fmt"
+import (
+	"fmt"
+
+	"Messenger/api/models"
+)
 
 type WebsocketServer struct {
 	//Register channel will broadcast to all connected users when a new user has joined.
@@ -10,7 +14,7 @@ type WebsocketServer struct {
 	Unregister chan *client
 
 	//Broadcast will accept messages from a client, and send it each connected client.
-	Broadcast chan message
+	Broadcast chan models.Message
 
 	//Clients will store a reference to each connected client on the socket server.
 	Clients map[*client]bool
@@ -29,7 +33,7 @@ func NewSocketServer (broadcastToAll bool) *WebsocketServer{
 	return &WebsocketServer{
 		Register:       make(chan *client),
 		Unregister:     make(chan *client),
-		Broadcast:      make(chan message),
+		Broadcast:      make(chan models.Message),
 		Clients:        make(map[*client]bool),
 		Rooms:          make(map[string]*client),
 		broadcastToAll: broadcastToAll,
@@ -39,28 +43,29 @@ func NewSocketServer (broadcastToAll bool) *WebsocketServer{
 //Function to initialize the server, and allow it to process the clients. It must be run in a seperate
 //goroutine. It accepts a callback function that will accept a string, which will be the message sent
 //from the connected client. 
-func (ws *WebsocketServer) Start(messageCallBack func(map[string]string)) {
+func (ws *WebsocketServer) Start(messageCallBack func(models.Message)) {
 	for {
 		select {
 			case client := <-ws.Register:
 				ws.Clients[client] = true
 				fmt.Println("num users:", len(ws.Clients))
-				ws.broadcastMessage(message{Body: fmt.Sprintf("Client %s connected...", client.ID), Type: 2, ClientID: client.ID})
+				ws.broadcastMessage(models.Message{MessageContent: fmt.Sprintf("Client %s connected...", client.ID), Type: 2, ClientID: client.ID})
 				break
 			case client := <-ws.Unregister:
 				delete(ws.Clients, client)
 				fmt.Println("num users:", len(ws.Clients))
 				fmt.Println("client", client, "disconnected")
-				ws.broadcastMessage(message{Body: fmt.Sprintf("Client %s disconnected...", client.ID), Type: 2, ClientID: client.ID})
+				ws.broadcastMessage(models.Message{MessageContent: fmt.Sprintf("Client %s disconnected...", client.ID), Type: 2, ClientID: client.ID})
 				break
-			case message := <-ws.Broadcast:
-				messageCallBack(map[string]string{"username": message.Username, "body": message.Body})
+			case message := <-ws.Broadcast: 
+			 	messageCallBack(message)
+				
 				ws.broadcastMessage(message)
 		}
 	}
 }
 
-func (ws *WebsocketServer) broadcastMessage(messageToSend message){
+func (ws *WebsocketServer) broadcastMessage(messageToSend models.Message){
 	for client := range ws.Clients {
 		if ws.broadcastToAll{
 			if client.ID != messageToSend.ClientID{

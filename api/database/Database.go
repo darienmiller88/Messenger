@@ -9,7 +9,7 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	// "gorm.io/gorm/logger"
+	"gorm.io/gorm/logger"
 )
 
 var db *gorm.DB
@@ -19,12 +19,15 @@ func InitDB() {
 
 	db_url := os.Getenv("DATABASE_URL")
 	db, err = gorm.Open(postgres.Open(db_url), &gorm.Config{
-		// Logger: logger.Default.LogMode(logger.Info),
+		Logger: logger.Default.LogMode(logger.Info),
 	})
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// db.Migrator().DropTable(&models.User{}, &models.Chat{}, &models.Message{}, &models.UserChat{})
+	db.AutoMigrate(&models.User{}, &models.Chat{}, &models.Message{}, &models.UserChat{})
 
 	chat := &models.Chat{}
 	db.Where("chat_name = ?", "public").Find(chat)
@@ -33,8 +36,6 @@ func InitDB() {
 		chat.ChatName = "public"
 		db.Create(chat)
 	}
-
-	db.AutoMigrate(&models.User{}, &models.Chat{}, &models.Message{}, &models.UserChat{})
 
 	fmt.Println("connected to database", db_url)
 }
