@@ -9,7 +9,7 @@ import Message from '../../components/Message/Message';
 import ThumbsUp from '../../components/ThumbsUp/ThumbsUp';
 import { messageApi } from "../../components/api/api"
 
-const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "ws://facebookmessengerapi.fly.dev/ws")
+const socket = new WebSocket(window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://facebookmessengerapi.fly.dev/ws")
 
 export default function ChatWindow({ isChatWindowActive, setIsChatWindowActive, chatName }) {
     const [inputText, setInputText] = useState("")
